@@ -16,6 +16,8 @@ jobs:
         run: |
           ls -la ${{ github.workspace }}
           ls -la /mnt
+          echo "Fixing cache permissions"
+          sudo chown ubuntu:ubuntu /mnt/*
           echo "Install pip3..."
           sudo apt-get update
           sudo apt-get install -y python3-pip
