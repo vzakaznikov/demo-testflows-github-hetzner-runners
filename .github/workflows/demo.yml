@@ -20,10 +20,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3-pip
           echo "Use cache for local Python modules..."
-          sudo mkdir -p /mnt/cache/lib
-          mkdir $HOME/.local
-          sudo cp -rf /mnt/cache/lib $HOME/.local/.
+          mkdir -p /mnt/cache/lib
+          mkdir -p $HOME/.local
+          cp -rf /mnt/cache/lib $HOME/.local/.
           pip3 install testflows --upgrade
           ls -la $HOME/.local/
-          sudo cp -rf $HOME/.local/lib /mnt/cache/.
+          cp -rf $HOME/.local/lib /mnt/cache/.
       - run: echo "🍏 This job's status is ${{ job.status }}."
