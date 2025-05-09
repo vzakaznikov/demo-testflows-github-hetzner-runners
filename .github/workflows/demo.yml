@@ -16,14 +16,18 @@ jobs:
         run: |
           ls -la ${{ github.workspace }}
           ls -la /mnt
+          
           echo "Install pip3..."
+          sudo mkdir -p /mnt/cache/apt-archives /mnt/cache/apt-lists
+          sudo mount --bind /mnt/cache/apt-archives /var/cache/apt/archives
+          sudo cp -a /mnt/cache/apt-lists/* /var/lib/apt/lists/ 2>/dev/null || true
           sudo apt-get update
           sudo apt-get install -y python3-pip
+          sudo cp -a /var/lib/apt/lists/* /mnt/cache/apt-lists/
+
           echo "Use cache for local Python modules..."
-          mkdir -p /mnt/cache/lib
-          mkdir -p $HOME/.local
-          cp -rf /mnt/cache/lib $HOME/.local/.
+          mkdir -p /mnt/cache/lib $HOME/.local/lib
+          sudo mount --bind /mnt/cache/lib $HOME/.local/lib
           pip3 install testflows --upgrade
-          ls -la $HOME/.local/
-          cp -rf $HOME/.local/lib /mnt/cache/.
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
