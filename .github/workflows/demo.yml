@@ -30,4 +30,7 @@ jobs:
           echo "Try docker..."
           docker run hello-world
 
+          echo "Dump /etc/hetzner-volumes"
+          cat /etc/hetzner-volumes
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
